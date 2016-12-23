@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicTest", "PicTest\PicTest.csproj", "{97967091-28F9-4514-B011-DA26EE54039B}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PathFinder", "PathFinder\PathFinder.shproj", "{4E8B1A15-A885-4722-A137-90553EE4A2CA}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		PathFinder\PathFinder.projitems*{97967091-28f9-4514-b011-da26ee54039b}*SharedItemsImports = 4
+		PathFinder\PathFinder.projitems*{4e8b1a15-a885-4722-a137-90553ee4a2ca}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97967091-28F9-4514-B011-DA26EE54039B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97967091-28F9-4514-B011-DA26EE54039B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97967091-28F9-4514-B011-DA26EE54039B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97967091-28F9-4514-B011-DA26EE54039B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

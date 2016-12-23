@@ -1,0 +1,32 @@
+﻿<Window x:Class="PicTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PicTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Name="find" Content="find" Click="find_Click" Height="30" Margin="0,5,0,0"/>
+            <Button Name="move" Content="move" Click="move_Click" Height="30" Margin="0,5,0,0"/>
+            <GroupBox Header="PointType" Margin="0,5,0,0">
+                <StackPanel>
+                    <RadioButton x:Name="StartType" Content="Start" IsChecked="True"/>
+                    <RadioButton x:Name="EndType" Content="End" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="BlockChoice" Margin="0,5,0,0">
+                <StackPanel>
+                    <RadioButton x:Name="SetBlock" Content="Set" IsChecked="True"/>
+                    <RadioButton x:Name="CleanBlock" Content="Clean" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <Canvas Name="canvas" Grid.Column="1" MouseRightButtonDown="SetPoint" MouseLeftButtonDown="canvas_MouseLeftButtonDown" MouseLeftButtonUp="canvas_MouseLeftButtonUp" MouseMove="canvas_MouseMove"/>
+    </Grid>
+</Window>
