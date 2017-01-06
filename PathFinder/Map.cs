@@ -141,11 +141,38 @@ namespace PathFinder
                     if (node == null)
                         continue;
 
+
                     if (node.IsBlock)
+                        //添加该点对本点的影响
                         this[p].AddNearBlock(node.Pos);
                     else
-                        node.RemoveNearBlock(p);
+                    {
+                        //去除本点对该点的影响
+                        if (node.RemoveNearBlock(p))
+                            GetNearBlockEffect(node.Pos);
+                    }
+                        
                 }            
+        }
+
+        /// <summary>
+        /// 获取周围障碍点对本点的影响
+        /// </summary>
+        /// <param name="p"></param>
+        private void GetNearBlockEffect(Pos p)
+        {
+            for (int x = -RobotObj.EffectDistFromBlock; x <= RobotObj.EffectDistFromBlock; x++)
+                for (int y = -RobotObj.EffectDistFromBlock; y <= RobotObj.EffectDistFromBlock; y++)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+                    var node = this[p.Shift(x, y)];
+                    if (node == null)
+                        continue;
+
+                    if (node.IsBlock)
+                        this[p].SetClosetDist(node.Pos);
+                }
         }
 
         /// <summary>

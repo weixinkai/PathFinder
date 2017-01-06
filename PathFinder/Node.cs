@@ -29,25 +29,21 @@ namespace PathFinder
         /// </summary>
         public int NearToBlockCount { private set; get; } = 0;
 
-        /// <summary>
-        /// 离机器人半径范围外的周边障碍点的距离，最近距离为相切
-        /// </summary>
-        private List<float> CloseToBlockDist { set; get; } = new List<float>();
 
         /// <summary>
         /// 离最近障碍点的距离
         /// </summary>
-        private float ClosetDist { get { return CloseToBlockDist.Min(); } }
+        private float ClosetDistToBlock { get; set; } = 0;
 
         /// <summary>
         /// 惩罚百分比
         /// </summary>
-        private float Punish { get { return (float) -0.5 * (ClosetDist / RobotObj.SafeDist) + 1; } }
+        private float Punish { get { return (float) -0.5 * (ClosetDistToBlock / RobotObj.SafeDist) + 1; } }
 
         /// <summary>
         /// 是否有惩罚
         /// </summary>
-        public bool IsPunish { get { return CloseToBlockDist.Count > 0; } }
+        public bool IsPunish { get; private set; } = false;
 
         public Node(Pos p)
         {
@@ -192,10 +188,31 @@ namespace PathFinder
                 NearToBlockCount++;
                 return;
             }
-            if (d == 0 || d <= RobotObj.SafeDist)
+
+            SetClosetDist(d);
+        }
+
+        public void SetClosetDist(Pos p)
+        {
+            var dist = (p - Pos).Length;
+            var d = dist - RobotObj.Size;
+            SetClosetDist(d);
+        }
+
+        private void SetClosetDist(float d)
+        {
+            if (d >= 0 && d <= RobotObj.SafeDist)
             {
-                CloseToBlockDist.Add(d);
-                return;
+                if (!IsPunish)
+                {
+                    ClosetDistToBlock = d;
+                    IsPunish = true;
+                }
+                else
+                {
+                    if (d < ClosetDistToBlock)
+                        ClosetDistToBlock = d;
+                }
             }
         }
 
@@ -203,22 +220,26 @@ namespace PathFinder
         /// 删除附近的障碍点
         /// </summary>
         /// <param name="p"></param>
-        public void RemoveNearBlock(Pos p)
+        public bool RemoveNearBlock(Pos p)
         {
             var dist = (p - Pos).Length;
             var d = dist - RobotObj.Size;
             if (d < 0 && NearToBlockCount > 0)
             {
                 NearToBlockCount--;
-                return;
+                return false;
             }
 
             
-            if (d == 0 || d <= RobotObj.SafeDist)
+            if (d <= RobotObj.SafeDist)
             {
-                CloseToBlockDist.Remove(d);
-                return;
+                if (IsPunish && d == ClosetDistToBlock)
+                {
+                    IsPunish = false;
+                    return true;
+                }
             }
+            return false;
         }
         
     }
